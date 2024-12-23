@@ -1,23 +1,27 @@
-import { View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { useFonts, Roboto_700Bold, Roboto_400Regular } from '@expo-google-fonts/roboto';
-import { GluestackUIProvider, Text } from '@gluestack-ui/themed'; //Text da biblioteca
+import { Center, GluestackUIProvider, Text } from '@gluestack-ui/themed'; //Text da biblioteca
+import { config } from './config/gluestack-ui.config';
+import { Loading } from '@components/Loading';
+import { SignUp } from '@screens/SignUp';
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_700Bold, Roboto_400Regular })
 
   return (
-    <GluestackUIProvider>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#202024" }}>
+    <GluestackUIProvider config={config}>
 
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
 
-        <StatusBar
-          barStyle="light-content"
-          translucent
-          backgroundColor="transparent"
-        />
+      {fontsLoaded ? 
+      (<SignUp />): (<Loading />
+    )}
 
-        {fontsLoaded ? <Text>App da academia!</Text> : <View />}
-      </View>
     </GluestackUIProvider>
   );
 }
